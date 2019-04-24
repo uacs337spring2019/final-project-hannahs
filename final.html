@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="final.css" />
+		<script type="text/javascript" src="final.js"></script>
+
+		<script src="http://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" 
+			charset="utf-8"></script>
+		<script src="http://js.api.here.com/v3/3.0/mapsjs-service.js" type="text/javascript" 
+			charset="utf-8"></script>
+		<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+		<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+
+		<title>Final Project</title>
+	</head>
+	<body>
+		<div id="topbanner">
+			<h1 id="title">Potty Pal</h1>
+			<img src="pic.png" alt="logo">
+			<div id="tagline">for your on-the-go gotta go</div>
+			<button type="submit" id="submitnew">Submit New Review</button>
+		</div>
+
+		<div id="homepage">
+			<div id="main">
+				<div id="map"></div>
+				<div id="places"></div>
+			</div>
+		</div>
+
+		<div id="reviewform">
+			<form>
+				<fieldset>
+				<legend>Submit Review</legend>
+				Name of Establishment:
+				<input type="text" id="name"><br>
+
+				Type of Establishment: 
+				<input type="radio" name="type" value="retail">Retail
+				<input type="radio" name="type" value="bar">Bar
+				<input type="radio" name="type" value="restaurant">Restaurant
+				<input type="radio" name="type" value="business">Business
+				<input type="radio" name="type" value="other">other<br>
+
+				Address:
+				<input type="text" id="address"><br>
+
+				Cleanliness Rating (out of 5):
+				<input type="text" id="rating"><br>
+
+				Hours of Operation:
+				<input type="text" id="hours"><br>
+
+				Style: 
+				<input type="radio" name="style" value="stalls">Stalls
+				<input type="radio" name="style" value="single">Single<br>
+
+				Customers Only?
+				<input type="radio" name="customers" value="true">Yes
+				<input type="radio" name="customers" value="false">No<br>
+
+				Changing Table?
+				<input type="radio" name="baby" value="true">Yes
+				<input type="radio" name="baby" value="false">No<br>
+
+				Unisex Option?
+				<input type="radio" name="unisex" value="true">Yes
+				<input type="radio" name="unisex" value="false">No<br>
+
+				Wheelchair Accessible?
+				<input type="radio" name="wheelchair" value="true">Yes
+				<input type="radio" name="wheelchair" value="false">No<br>
+
+				Family Restroom?
+				<input type="radio" name="family" value="true">Yes
+				<input type="radio" name="family" value="false">No<br>
+
+				Your Information:
+				<input type="text" value="First name" id="firstname">
+				<input type="text" value="Last name" id="lastname"> <br>
+
+				Comments:<br>
+				<input type="text" id="comment"><br>
+
+				<button type="button" id="submitform">Submit</button>
+				</fieldset>
+			</form>
+			<div id="response"></div>
+		</div>
+
+		<div id="viewreviews">
+			<div id="moreinfo">
+				<div id="leftdiv"></div>
+				<div id="rightdiv"></div>
+			</div>
+			<div id="reviews">
+				<h2>Reviews</h2>
+			</div>
+			<button type="submit" id="addreview">Add a Review</button>
+		</div>
+		<div id="bottombanner"></div>
+	</body>
+</html>

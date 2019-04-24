@@ -1,0 +1,11 @@
+Bookmans Entertainment Exchange
+3330 E. Speedway Blvd, Tucson, AZ 85716
+Retail
+4
+insert hours here
+stalls
+true
+true
+false
+true
+false
