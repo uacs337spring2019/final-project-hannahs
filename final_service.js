@@ -117,7 +117,6 @@
 		// get query parameters:
 		let mode = req.query.mode;
 		console.log(req.query.mode);
-		console.log(req.mode);
 		let location = req.query.place;
 
 		if (mode === "listinfo") {

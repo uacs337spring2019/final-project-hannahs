@@ -1,0 +1,11 @@
+Main Library, University of Arizona
+1510 E University Blvd, Tucson, AZ 85721
+Other
+4
+24 hours
+stalls
+false
+true
+true
+true
+true
