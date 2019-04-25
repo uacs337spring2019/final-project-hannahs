@@ -13,17 +13,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/uacs337spring2019/final-project-hannahs.git"
-  },
   "keywords": [
     "finalProj"
   ],
   "author": "Hannah Smith",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/uacs337spring2019/final-project-hannahs/issues"
-  },
-  "homepage": "https://github.com/uacs337spring2019/final-project-hannahs#readme"
+  "license": "ISC"
 }
