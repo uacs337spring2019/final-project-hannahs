@@ -1,0 +1,11 @@
+No Anchovies
+870 E University Blvd, Tucson, AZ 85719
+Restaurant
+2
+11am - 2am
+stalls
+true
+true
+true
+true
+false
