@@ -1,25 +1,34 @@
-"use strict";
-
+/**
+	Author: Hannah Smith
+	Course: CSc 337
+	Purpose: This file provides the javascript code for the 337 final 
+	project. This particular project is a web app that allows users to 
+	post reviews of public restrooms. This file initializes the map and 
+	makes the appropriate calls to the service to load the appropriate
+	information.
+*/
 (function () {
+	"use strict";
+
 	let PORT = "process.env.PORT";
 	let HOST = "https://hannahhsmith12.herokuapp.com/";
-	// let PORT = "3000";
-	// let HOST = "http://localhost:";
+	//let PORT = "3000";
+	//let HOST = "http://localhost:";
 	window.onload = function () {
 		// homepage: 
 		callAjax("listinfo", "none");
 
-		// when "submit new review" button is clicked:
-		// document.getElementById("submitnew").onclick = function () {
-		// 	loadSubmitPage();
-		// };
-
 		// make header clickable:
 		document.getElementById("title").onclick = function () {
 			callAjax("listinfo", "none");
-		}
+		};
 	};
-
+	/**
+		callAjax(mode, place) -- Retrieves the appropriate information from
+		the Node.js server and returns that information as a JSON object.
+		@param {String} mode - GET argument
+		@param {String} place - GET argument
+	*/
 	function callAjax(mode, place) {
 		// place will be the directory name
 		let url = HOST + PORT + "?mode="+mode+"&place="+place;
@@ -38,9 +47,14 @@
 			})
 			.catch(function (error) {
 				console.log(error);
-			})
+			});
 	}
 
+	/**
+		postAjax(info) -- Given a JSON object, this function sends that object
+		to the Node.js server to post.
+		@param {JSON object} info - the relavant information
+	*/
 	function postAjax(info) {
 		const fetchOptions = {
 			method : 'POST',
@@ -55,28 +69,33 @@
 		fetch(url, fetchOptions)
 			.then(checkStatus)
 			.then(function(responseText) {
-				document.getElementById("response").innerHTML = responseText;
+				document.getElementById("response2").innerHTML = responseText;
+				// add return home button:
 				let home = document.createElement("button");
 				home.innerHTML = "Return Home";
 				home.type = "button";
-				document.getElementById("reviewform").appendChild(home);
+				document.getElementById("viewreviews").appendChild(home);
 				home.onclick = function () {
-					document.getElementById("reviewform").style.display = "none";
+					document.getElementById("viewreviews").style.display = "none";
 					document.getElementById("homepage").style.display = "block";
 					// reload homepage:
 					document.getElementById("places").innerHTML = "";
 					callAjax("listinfo", "none");
-				}
+				};
 			})
 			.catch(function(error) {
 				console.log(error);
 			});
 	}
 
-	// loads the clickable list on the homepage
+	/**
+		loadHomepage(responseText) -- Given a JSON object, this function loads
+		the data into the homepage divs. It loads the clickable list of reviewable
+		establishments as well as makes the call to initialize the interactive map.
+		@param {JSON object} responseText - the relavant information
+	*/
 	function loadHomepage(responseText) {
-		document.getElementById("viewreviews").style.display = "none"
-		document.getElementById("reviewform").style.display = "none"
+		document.getElementById("viewreviews").style.display = "none";
 		document.getElementById("homepage").style.display = "block";
 		document.getElementById("map").innerHTML = '';
 		document.getElementById("places").innerHTML = '';
@@ -117,15 +136,21 @@
 			div.appendChild(rateDiv);
 			div.onclick = function () {
 				callAjax("moreinfo", div.id);
-			}
+			};
 			document.getElementById('places').appendChild(div);
 		}
 	}
 
+	/**
+		initMap(responseText) -- Given a JSON object, this function initializes the
+		interactive map by placing clickable markers in the appropriate locations,
+		in accordance with the JSON objects address data.
+		@param {JSON object} responseText - the relavant information
+	*/
 	function initMap(responseText) {
 		// Process JSON:
 		let json = JSON.parse(responseText);
-		let places = json.places
+		let places = json.places;
 
 		// Init map:
 		let platform = new H.service.Platform({
@@ -138,17 +163,16 @@
 			defaultLayers.normal.map, 
 			{
 				zoom: 10,
-	         	center: { lat: 32.2226, lng: -110.9747 }
-	    });
-	    // make map interactive
-		var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+				center: { lat: 32.2226, lng: -110.9747 }
+		});
+		// make map interactive
+		new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 		// Create the default UI:
-		var ui = H.ui.UI.createDefault(map, defaultLayers, 'en-US');
+		H.ui.UI.createDefault(map, defaultLayers, 'en-US');
 
 		// Container for marker info:
-		var logContainer = document.createElement('ul');
+		let logContainer = document.createElement('ul');
 					logContainer.className ='log';
-					//logContainer.innerHTML = '<li class="log-entry">Try clicking on elements</li>';
 					map.getElement().appendChild(logContainer);
 
 		// Add markers to map:
@@ -165,17 +189,17 @@
 			function (result) {
 				let locations = result.response.view[0].result[0].location;
 				let marker = new H.map.Marker({lat: locations.displayPosition.latitude, 
-									   lng: locations.displayPosition.longitude});
-				marker.addEventListener('pointerenter', function () {
-				  	let entry = document.createElement('li');
-				  	let br = document.createElement("br");
-				  	entry.className = 'log-entry';
-				  	entry.innerHTML = places[i].name;
-				  	entry.appendChild(br);
-				  	entry.innerHTML += places[i].address;
-				  	entry.appendChild(br);
-				  	entry.innerHTML += "Rating: " + places[i].rating + " stars";
-				  	logContainer.insertBefore(entry, logContainer.firstChild);
+										lng: locations.displayPosition.longitude});
+					marker.addEventListener('pointerenter', function () {
+					let entry = document.createElement('li');
+					let br = document.createElement("br");
+					entry.className = 'log-entry';
+					entry.innerHTML = places[i].name;
+					entry.appendChild(br);
+					entry.innerHTML += places[i].address;
+					entry.appendChild(br);
+					entry.innerHTML += "Rating: " + places[i].rating + " stars";
+					logContainer.insertBefore(entry, logContainer.firstChild);
 				});
 				marker.addEventListener('pointerleave', function () {
 					logContainer.innerHTML = "";
@@ -193,94 +217,12 @@
 		}
 	}
 
-	function loadSubmitPage() {
-		document.getElementById("homepage").style.display = "none";
-		document.getElementById("reviewform").style.display = "block";
-		document.getElementById("viewreviews").style.display = "none";
-		document.getElementById("submitform").onclick = function () {
-			postReview();
-		};
-	}
-
-	function postReview() {
-		// Retrieve all values from form:
-		let name = document.getElementById("name").value;
-
-		let types = document.getElementsByName("type");
-		let type;
-		for (let i = 0; i < types.length; i ++) {
-			if (types[i].checked) {
-				type = types[i].value;
-				break;
-			}
-		}
-		let address = document.getElementById("address").value;
-		let rating = document.getElementById("rating").value;
-		let hours = document.getElementById("hours").value;
-		let styles = document.getElementsByName("style");
-		let style;
-		for (let i = 0; i < styles.length; i ++) {
-			if (styles[i].checked) {
-				style = styles[i].value;
-				break;
-			}
-		}
-		let customers = document.getElementsByName("customer");
-		let customer;
-		for (let i = 0; i < customers.length; i ++) {
-			if (customers[i].checked) {
-				customer = customers[i].value;
-				break;
-			}
-		}
-		let babies = document.getElementsByName("baby");
-		let baby;
-		for (let i = 0; i < babies.length; i ++) {
-			if (babies[i].checked) {
-				baby = babies[i].value;
-				break;
-			}
-		}
-		let unisexes = document.getElementsByName("unisex");
-		let unisex;
-		for (let i = 0; i < unisexes.length; i ++) {
-			if (unisexes[i].checked) {
-				unisex = unisexes[i].value;
-				break;
-			}
-		}
-		let wheelchairs = document.getElementsByName("wheelchair");
-		let wheelchair;
-		for (let i = 0; i < wheelchairs.length; i ++) {
-			if (wheelchairs[i].checked) {
-				wheelchair = wheelchairs[i].value;
-				break;
-			}
-		}
-		let families = document.getElementsByName("family");
-		let family;
-		for (let i = 0; i < families.length; i ++) {
-			if (families[i].checked) {
-				family = families[i].value;
-				break;
-			}
-		}
-		let comment = document.getElementById("comment").value;
-
-		let first = document.getElementById("firstname").value;
-		let last = document.getElementById("lastname").value;
-
-		let folder = getFolderName(name);
-
-		const info = {"folder" : folder, "name" : name, "address" : address, "type": type,
-		"rating" : rating, "hours" : hours, "style" : style, "CO" : customers, 
-		"baby" : baby, "unisex" : unisex, "wheelchair" : wheelchair, "family" : family,
-		"review" : comment, "first" : first, "last" : last};
-
-		postAjax(info);
-	}
-
-	// loads review part of individual review/moreinfo pages:
+	/**
+		loadReviews(responseText) -- Given a JSON object, this function makes a 
+		call to the Node.js server to retrieve the reviews and then loads them into
+		the appropriate div.
+		@param {JSON object} responseText - the relavant information
+	*/
 	function loadReviews(responseText) {
 		// clear out any existing reviews:
 		document.getElementById("reviews").innerHTML = "";
@@ -319,58 +261,35 @@
 	}
 
 	/**
-		addSingleReview() -- This function adds a review for the specified establishment
-		whose page the button is clicked on.
+		addSingleReview(directory) -- This function adds a review for the specified 
+		establishment whose page the button is clicked on. It takes the information 
+		from the form and stores it in a JSON object and passes that object on to be
+		posted.
+		@param {String} directory - a directory name
 	*/
 	function addSingleReview(directory) {
 		// clear old reviews, so as not to reload them: 
-		//document.getElementById("reviews").innerHTML = "";
-
 		let name = document.getElementById("reviewername").value;
 		let comment = document.getElementById("reviewtext").value;
 		let rating = document.getElementById("reviewrating").value;
 
 		if (name.length === 0 || comment.length === 0 || rating.length === 0) {
-			document.getElementById("response2").innerHTML = "OOPS! Looks like you forgot something... \
-			please fill out all fields before submitting.";
+			document.getElementById("response2").innerHTML = "OOPS! Looks like you forgot \
+			something... please fill out all fields before submitting.";
 			return;
 		}
 
 		const info = {"folder" : directory, "name" : name, "rating" : rating, 
 			"comment": comment};
 
-		const fetchOptions = {
-			method : 'POST',
-			headers : {
-				'Accept' : 'application/json',
-				'Content-Type' : 'application/json'
-			},
-			body : JSON.stringify(info)
-		};
-
-		let url = HOST + PORT + "?";
-		fetch(url, fetchOptions)
-			.then(checkStatus)
-			.then(function(responseText) {
-				document.getElementById("response2").innerHTML = responseText;
-				// add return home button:
-				let home = document.createElement("button");
-				home.innerHTML = "Return Home";
-				home.type = "button";
-				document.getElementById("viewreviews").appendChild(home);
-				home.onclick = function () {
-					document.getElementById("viewreviews").style.display = "none";
-					document.getElementById("homepage").style.display = "block";
-					// reload homepage:
-					document.getElementById("places").innerHTML = "";
-					callAjax("listinfo", "none");
-				}
-			})
-			.catch(function(error) {
-				console.log(error);
-			});
+		postAjax(info);
 	}
 
+	/**
+		loadMoreInfo(responseText) -- Given a JSON object, this function loads
+		the appropriate data into the moreinfo div.
+		@param {JSON object} responseText - the relavant information
+	*/
 	function loadMoreInfo(responseText) {
 		// hide other stuff:
 		document.getElementById("homepage").style.display = "none";
@@ -394,8 +313,8 @@
 		
 		// FORMAT: 
 		// {"folder" : directory, "name" : lines[0], "address" : lines[1], "rating" : lines[2],
-		// "hours" : lines[3], "style" : lines[4], "CO" : lines[5], "baby" : lines[6], "unisex" : lines[7], 
-		// "wheelchair" : lines[8], "family" : lines[9]}
+		// "hours" : lines[3], "style" : lines[4], "CO" : lines[5], "baby" : lines[6], "unisex" : 
+		// lines[7], "wheelchair" : lines[8], "family" : lines[9]}
 
 		// RATING:
 		let rating = document.createElement("div");
@@ -461,7 +380,7 @@
 		// CUSTOMERS ONLY:
 		let customers = document.createElement("div");
 		customers.className = "customers";
-		customers.innerHTML = "For use by customers only? "
+		customers.innerHTML = "For use by customers only? ";
 		let custimg = document.createElement("img");
 		if (info.CO === "true") {
 			custimg.src = "check.png";
@@ -529,20 +448,13 @@
 		callAjax("reviews", info.folder);
 	}
 
-	// folder name is first 8 characters of the establishment name, excluding whitespace
-	function getFolderName(name) {
-		let folder = "";
-		let count = 0, i = 0;
-		while (count < 8 && i < name.length) {
-			if (name[i] != " ") {
-				folder += name[i].toLowerCase();
-				count ++;
-			}
-			i ++;
-		}
-		return folder;
-	}
-
+	/**
+		checkStatus(response) -- This function processes the response
+		status and acts appropriately. It either returns the response
+		text if the response status is valid or returns a promise rejection
+		if there was an error fetching the data. 
+		@param {JSON object} response - response from the Node.js service
+	*/
 	function checkStatus(response) {
 		if (response.status >= 200 && response.status < 300) {
 			return response.text();

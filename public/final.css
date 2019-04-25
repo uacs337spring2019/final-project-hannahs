@@ -1,3 +1,13 @@
+/*
+	Author: Hannah Smith
+	Course: CSc 337
+	Purpose: This file provides the CSS code for the 337 final 
+	project. This particular project is a web app that allows users to 
+	post reviews of public restrooms. This file initializes the map and 
+	makes the appropriate calls to the service to load the appropriate
+	information.
+*/
+
 body {
 	color: white;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
@@ -133,25 +143,6 @@ h3, p {
 	height: 100%;
 }
 
-/* -- REVIEW FORM PAGE -- */
-
-#reviewform, #viewreviews {
-	display: none;
-	width: 90%;
-	height: 500px;
-	margin: auto;
-}
-
-legend {
-	text-align: left;
-}
-
-fieldset {
-	width: 80%;
-	margin: auto;
-	text-align: center;
-}
-
 /* -- INDIVIDUAL REVIEW PAGES --*/
 
 #rightdiv > img {
@@ -252,16 +243,22 @@ h2 {
 	height: 50px;
 }
 
-#reviewtext {
-	margin-top: 10px;
-}
-
-#response2 {
+#reviewtext, #response2 {
 	margin-top: 10px;
 }
 
 #response2 > button {
 	margin-top: 5px;
+}
+
+legend {
+	text-align: left;
+}
+
+fieldset {
+	width: 80%;
+	margin: auto;
+	text-align: center;
 }
 
 
