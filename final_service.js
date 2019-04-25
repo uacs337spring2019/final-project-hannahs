@@ -119,9 +119,11 @@
 		let location = req.query.place;
 
 		if (mode === "listinfo") {
+			console.log('inside if statement');
 			let places = [];
 			let directories = fs.readdirSync(process.cwd() + "/places");
 			for (let i = 1; i < directories.length; i ++) {
+				console.log("inside for loop");
 				let place = getBasic(directories[i]);
 				places[i-1] = place;
 			}
