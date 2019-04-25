@@ -1,0 +1,11 @@
+Gould Simpson, University of Arizona
+1040 E 4th St, Tucson, AZ 85719
+Other
+4
+24 hours
+stalls
+false
+false
+false
+true
+false

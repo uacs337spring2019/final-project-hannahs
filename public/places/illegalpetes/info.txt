@@ -1,0 +1,11 @@
+Illegal Pete's
+876 E University Blvd, Tucson, AZ 85719
+Restaurant
+3
+10:30am - 12am
+stalls
+true
+false
+false
+true
+false
