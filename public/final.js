@@ -10,7 +10,6 @@
 (function () {
 	"use strict";
 
-	let PORT = "";
 	let HOST = "https://fast-fortress-58476.herokuapp.com/";
 
 	window.onload = function () {
@@ -30,7 +29,7 @@
 	*/
 	function callAjax(mode, place) {
 		// place will be the directory name
-		let url = HOST + PORT + "?mode="+mode+"&place="+place;
+		let url = HOST + "?mode="+mode+"&place="+place;
 		fetch(url)
 			.then(checkStatus)
 			.then(function (responseText) {
@@ -64,7 +63,7 @@
 			body : JSON.stringify(info)
 		};
 
-		let url = HOST + PORT + "?";
+		let url = HOST + "?";
 		fetch(url, fetchOptions)
 			.then(checkStatus)
 			.then(function(responseText) {
