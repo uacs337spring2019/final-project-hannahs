@@ -1,8 +1,8 @@
 "use strict";
 
 (function () {
-	let PORT = process.env.PORT;
-	let HOST = "http://hannahhsmith12.herokuapp.com:";
+	let PORT = "process.env.PORT";
+	let HOST = "https://hannahhsmith12.herokuapp.com/";
 	// let PORT = "3000";
 	// let HOST = "http://localhost:";
 	window.onload = function () {
