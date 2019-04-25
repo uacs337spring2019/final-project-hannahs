@@ -1,0 +1,265 @@
+/*
+	Author: Hannah Smith
+	Course: CSc 337
+	Purpose: This file provides the CSS code for the 337 final 
+	project. This particular project is a web app that allows users to 
+	post reviews of public restrooms. This file initializes the map and 
+	makes the appropriate calls to the service to load the appropriate
+	information.
+*/
+
+body {
+	color: white;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	text-align: center;
+	background-color: #add8e7;
+	margin: 0px;
+	font-weight: bold;
+}
+/* TOP BANNER -- TITLE & TAGLINE */
+
+h1 {
+	font-size: 45px;
+	text-align: center;
+	font-family: Impact, Charcoal, sans-serif;
+	padding-left: 50px;
+}
+
+#topbanner > img {
+	height: 40px;
+	padding: 0px;
+}
+
+#tagline {
+	margin: 0px;
+	margin-top: 10px;
+	font-style: italic;
+}
+
+#topbanner, #bottombanner {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	background-color: #72bcd4;
+	height: 50px;
+	width: 100%;
+	margin: 0px;
+	padding: 10px;
+	color: white;
+}
+
+#topbanner {
+	margin-bottom: 20px;
+}
+
+#bottombanner {
+	margin-top: 40px;
+	justify-content: flex-end;
+}
+
+#bottombanner > img {
+	height: 20px;
+	margin-top: 30px;
+}
+
+#submitnew {
+	margin-left: 1em;
+	float: right;
+}
+
+/* HOMEPAGE -- MAP & LISTINGS */
+
+#homepage {
+	height: 500px;
+}
+
+#main {
+	display: flex;
+	flex-direction: row;
+	width: 90%;
+	height: 100%;
+	margin: auto;
+}
+
+#map, #places  {
+	width: 50%;
+	height: 100%;
+}
+
+.place {
+	height: 10%;
+	width: 100%;
+	background-color: #e8f4f8;
+	border-bottom: 1px solid grey;
+	margin: 0px;
+	padding: 2px;
+	color: black;
+	overflow: hidden;
+}
+
+.place > img {
+	float: left;
+	padding: 1px;
+	height: 100%;
+}
+
+h3, p {
+	margin: 0px;
+	padding: 1px;
+	font-size: 8pt;
+}
+
+.log-entry {
+ 	padding: 5px;
+ 	border-bottom: 1px solid #d0d9e9;
+ 	color: black;
+}
+
+.log {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	height: 50px;
+	width: 250px;
+	overflow: scroll;
+	background: white;
+	opacity: 0.75;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 12px;
+}
+
+.log-entry:nth-child(odd) {
+    background-color: #e1e7f1;
+}
+
+#starDiv {
+	height: 30%;
+}
+
+.homeStar {
+	padding: 1px;
+	height: 100%;
+}
+
+/* -- INDIVIDUAL REVIEW PAGES --*/
+
+#rightdiv > img {
+	float: right;
+	width: 90%;
+}
+
+#moreinfo {
+	text-align: left;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	padding: 5px;
+	margin: auto;
+}
+
+#rightdiv, #leftdiv {
+	width: 50%;
+}
+
+.rating {
+	padding-top: 40px;
+	text-align: center;
+	color: white;
+	font-size: 20pt;
+	font-family: Impact, Charcoal, sans-serif;
+	width: 100%;
+	padding-bottom: 10px;
+}
+
+.rating > img {	/* stars on individual review page */
+	height: 40px;
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 3px;
+	font-size: 28pt;
+	font-family: Impact, Charcoal, sans-serif;
+}
+
+#text > div { /* options/checkbox divs */
+	font-size: 14pt;
+	padding: 5px;
+}
+
+.type, .address, .hours {
+	text-align: center;
+	font-size: 11pt;
+}
+
+.hours {
+	padding-bottom: 10px;
+}
+
+#text {
+	width: 80%;
+	margin: auto;
+	padding: 10px;
+	text-align: center;
+}
+
+#text > div > img {
+	height: 25px;
+}
+
+/* -- REVIEWS --*/
+
+#viewreviews {
+	display: none;
+	width: 90%;
+	margin: auto;
+	height: 100%;
+}
+#reviews {
+	text-align: center;
+}
+
+#reviews > div {
+	background-color: #72bcd4;
+	margin: 5px;
+	width: 60%;
+	display: inline-block;
+	margin-bottom: 20px;
+}
+
+.indivRating, .name, .review {
+	padding: 5px;
+	margin: 0px;
+}
+
+.indivRating > img {
+	height: 25px;
+}
+
+#comment, #reviewtext{
+	width: 500px;
+	height: 50px;
+}
+
+#reviewtext, #response2 {
+	margin-top: 10px;
+}
+
+#response2 > button {
+	margin-top: 5px;
+}
+
+legend {
+	text-align: left;
+}
+
+fieldset {
+	width: 80%;
+	margin: auto;
+	text-align: center;
+}
+
+
+

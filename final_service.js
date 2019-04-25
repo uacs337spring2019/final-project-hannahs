@@ -120,7 +120,7 @@
 
 		if (mode === "listinfo") {
 			let places = [];
-			let directories = fs.readdirSync("places");
+			let directories = fs.readdirSync("/places");
 			for (let i = 1; i < directories.length; i ++) {
 				let place = getBasic(directories[i]);
 				places[i-1] = place;
@@ -161,8 +161,8 @@
 		});
 
 	});
-	// process.env.PORT
 	app.listen(process.env.PORT);
+	//app.listen(3000);
 })();
 
 

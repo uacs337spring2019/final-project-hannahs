@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- 
+	Author: Hannah Smith
+	Course: CSc 337
+	Purpose: This file provides the HTML code for the 337 final 
+	project. This particular project is a web app that allows users to 
+	post reviews of public restrooms. This file initializes the map and 
+	makes the appropriate calls to the service to load the appropriate
+	information.
+-->
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="final.css" />
+		<script type="text/javascript" src="final.js"></script>
+
+		<script src="https://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" 
+			charset="utf-8"></script>
+		<script src="https://js.api.here.com/v3/3.0/mapsjs-service.js" type="text/javascript" 
+			charset="utf-8"></script>
+		<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+		<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+
+		<title>PottyPal</title>
+	</head>
+	<body>
+		<div id="topbanner">
+			<h1 id="title">PottyPal</h1>
+			<img src="pic.png" alt="logo">
+			<div id="tagline">for your on-the-go gotta go</div>
+		</div>
+
+		<div id="homepage">
+			<div id="main">
+				<div id="map"></div>
+				<div id="places"></div>
+			</div>
+		</div>
+		<div id="viewreviews">
+			<div id="moreinfo">
+				<div id="leftdiv"></div>
+				<div id="rightdiv"></div>
+			</div>
+			<h2>Reviews</h2>
+			<div id="reviews">
+			</div>
+			<form id="addReview">
+				<fieldset>
+					<legend>Leave a Review:</legend>
+					Name: 
+					<input type="text" id="reviewername"> 
+					Rating: (out of 5)
+					<input type="text" id="reviewrating"> <br>
+					<input type="text" id="reviewtext"> <br>
+				</fieldset>
+			</form>
+			<button type="submit" id="submitreview">Add a Review</button>
+			<div id="response2"></div>
+		</div>
+
+		<div id="bottombanner">
+			<img src="w3c_html.png" alt="HTML validator">
+			<img src="w3c_css.png" alt="CSS validator">
+		</div>
+	</body>
+</html>
