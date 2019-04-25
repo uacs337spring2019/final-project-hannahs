@@ -10,7 +10,7 @@
 (function () {
 	"use strict";
 
-	let HOST = "https://fast-fortress-58476.herokuapp.com/";
+	let HOST = "https://fast-fortress-58476.herokuapp.com";
 	//let HOST = "http://localhost:3000";
 
 	window.onload = function () {
