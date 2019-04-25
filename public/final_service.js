@@ -100,7 +100,7 @@
 		@returns {list} - relavent data
 	*/
 	function getAllBasic() {
-		let folders = fs.readdirSync("places");
+		let folders = fs.readdirSync(process.cwd() + "/places");
 		let places = [];
 		for (let i = 1; i < folders.length; i ++) {
 			let info = getBasic(folders[i]);
@@ -113,14 +113,14 @@
 	console.log('web service started');
 	app.get('/', function (req, res) {
 		res.header("Access-Control-Allow-Origin", "*");
-
+		console.log("hello");
 		// get query parameters:
 		let mode = req.query.mode;
 		let location = req.query.place;
 
 		if (mode === "listinfo") {
 			let places = [];
-			let directories = fs.readdirSync("/places");
+			let directories = fs.readdirSync(process.cwd() + "/places");
 			for (let i = 1; i < directories.length; i ++) {
 				let place = getBasic(directories[i]);
 				places[i-1] = place;
