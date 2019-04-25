@@ -272,6 +272,11 @@
 		let name = document.getElementById("reviewername").value;
 		let comment = document.getElementById("reviewtext").value;
 		let rating = document.getElementById("reviewrating").value;
+		if (rating < 0 || rating > 5) {
+			document.getElementById("response2").innerHTML = "OOPS! Looks like you entered \
+			an invalid rating. Please choose a number between 0 and 5.";
+			return; 
+		}
 
 		if (name.length === 0 || comment.length === 0 || rating.length === 0) {
 			document.getElementById("response2").innerHTML = "OOPS! Looks like you forgot \
