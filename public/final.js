@@ -11,9 +11,8 @@
 	"use strict";
 
 	let PORT = "process.env.PORT";
-	let HOST = "https://hannahhsmith12.herokuapp.com/";
-	//let PORT = "3000";
-	//let HOST = "http://localhost:";
+	let HOST = "https://fast-fortress-58476.herokuapp.com/";
+
 	window.onload = function () {
 		// homepage: 
 		callAjax("listinfo", "none");
