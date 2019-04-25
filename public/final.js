@@ -155,6 +155,7 @@
 		let platform = new H.service.Platform({
 			'app_id':'btIS6iT6IuLNur7a89Lt',
 			'app_code':'9TqWkeJCx_coB4cnjqvc6A'
+			'useHTTPS' : true,
 		});
 		let defaultLayers = platform.createDefaultLayers();
 		let map = new H.Map(
