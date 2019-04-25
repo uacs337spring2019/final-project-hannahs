@@ -11,7 +11,7 @@
 	"use strict";
 
 	let PORT = "process.env.PORT";
-	let HOST = "https://fast-fortress-58476.herokuapp.com:";
+	let HOST = "https://fast-fortress-58476.herokuapp.com/";
 
 	window.onload = function () {
 		// homepage: 
