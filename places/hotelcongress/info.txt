@@ -1,0 +1,11 @@
+Club Congress
+311 E Congress St, Tucson, AZ 85701
+Bar
+4
+11am - 2am
+stalls
+true
+false
+false
+false
+false
