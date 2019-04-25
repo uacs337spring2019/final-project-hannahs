@@ -18,7 +18,7 @@
 			<h1 id="title">Potty Pal</h1>
 			<img src="pic.png" alt="logo">
 			<div id="tagline">for your on-the-go gotta go</div>
-			<button type="submit" id="submitnew">Submit New Review</button>
+			<!-- <button type="submit" id="submitnew">Submit New Review</button> -->
 		</div>
 
 		<div id="homepage">
@@ -93,11 +93,26 @@
 				<div id="leftdiv"></div>
 				<div id="rightdiv"></div>
 			</div>
+			<h2>Reviews</h2>
 			<div id="reviews">
-				<h2>Reviews</h2>
 			</div>
-			<button type="submit" id="addreview">Add a Review</button>
+			<form id="addReview">
+				<fieldset>
+					<legend>Leave a Review:</legend>
+					Name: 
+					<input type="text" id="reviewername"> 
+					Rating: (out of 5)
+					<input type="text" id="reviewrating"> <br>
+					<input type="text" id="reviewtext"> <br>
+				</fieldset>
+			</form>
+			<button type="submit" id="submitreview">Add a Review</button>
+			<div id="response2"></div>
 		</div>
-		<div id="bottombanner"></div>
+
+		<div id="bottombanner">
+			<img src="w3c_html.png" alt="HTML validator">
+			<img src="w3c_css.png" alt="CSS validator">
+		</div>
 	</body>
 </html>

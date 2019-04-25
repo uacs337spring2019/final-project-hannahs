@@ -100,10 +100,7 @@ app.get('/', function (req, res) {
 	let mode = req.query.mode;
 	let location = req.query.place;
 
-	//let folders = fs.readdirSync("places");
-	//console.log(files);
 	if (mode === "listinfo") {
-		console.log("listinfo");
 		let places = [];
 		let directories = fs.readdirSync("places");
 		for (let i = 1; i < directories.length; i ++) {
@@ -111,18 +108,15 @@ app.get('/', function (req, res) {
 			places[i-1] = place;
 		}
 		places = {places};
-		console.log(places);
 		res.send(JSON.stringify(places));
 	} else if (mode === "moreinfo") {
 		let info = getInfo(location);
 		res.send(JSON.stringify(info));
 	} else if (mode === "reviews") {
 		let reviews = getReviews(location);
-		console.log(reviews);
 		res.send(JSON.stringify(reviews));
 	} else if (mode === "map") {
 		let places = getAllBasic();
-		console.log("addresses: "+places);
 		res.send(JSON.stringify({places}));
 	}
 });
@@ -130,53 +124,67 @@ app.get('/', function (req, res) {
 // POST:
 app.post('/', jsonParser, function (req, res) {
 	res.header("Access-Control-Allow-Origin", "*");
+	// let folder = req.body.folder;
+	// let name = req.body.name;
+	// let address = req.body.address;
+	// let type = req.body.type;
+	// let rating = req.body.rating;
+	// let hours = req.body.hours;
+	// let style = req.body.style;
+	// let customers = req.body.customers;
+	// let baby = req.body.baby;
+	// let unisex = req.body.unisex;
+	// let wheelchair = req.body.wheelchair;
+	// let family = req.body.family;
+	// let comment = req.body.review;
+	// let first = req.body.first;
+	// let last = req.body.last;
+
+	// let info = name + "\n" + address + "\n" + type + "\n" + rating + "\n" +
+	// 	hours + "\n" + style + "\n" + customers + "\n" + baby + "\n" + unisex
+	// 	+ "\n" + wheelchair + "\n" + family;
+
+	// let dir = process.cwd() + "/places/" + folder;
+	// if (!fs.existsSync(dir)) {
+	// 	fs.mkdirSync(dir);
+	// }
+
+	// // write info file:
+	// fs.writeFile(process.cwd() + "/places/" + folder + "/info.txt", info, function(err) {
+	// 	if(err) {
+	// 		console.log(err);
+	// 		res.status(400);
+	// 		res.send('Error submitting review.');
+	// 	}
+	// });
+
+	// // write review file:
+	// let review = first + " " + last[0] + ".:::" + rating + ":::" + comment;
+	// fs.appendFile(process.cwd() + "/places/" + folder + "/reviews.txt", review, function(err) {
+	// 	if(err) {
+	// 		console.log(err);
+	// 		res.status(400);
+	// 		res.send('Error submitting review.');
+	// 	}
+	// 	res.send('Review successfully submitted!');
+	// });
+
+	// JUST POST SINGLE REVIEW:
 	let folder = req.body.folder;
 	let name = req.body.name;
-	let address = req.body.address;
-	let type = req.body.type;
 	let rating = req.body.rating;
-	let hours = req.body.hours;
-	let style = req.body.style;
-	let customers = req.body.customers;
-	let baby = req.body.baby;
-	let unisex = req.body.unisex;
-	let wheelchair = req.body.wheelchair;
-	let family = req.body.family;
 	let comment = req.body.comment;
-	let first = req.body.first;
-	let last = req.body.last;
 
-	let info = name + "\n" + address + "\n" + type + "\n" + rating + "\n" +
-		hours + "\n" + style + "\n" + customers + "\n" + baby + "\n" + unisex
-		+ "\n" + wheelchair + "\n" + family;
-
-	let dir = process.cwd() + "/places/" + folder;
-	if (!fs.existsSync(dir)) {
-		fs.mkdirSync(dir);
-	}
-
-	// write info file:
-	fs.writeFile(process.cwd() + "/places/" + folder + "/info.txt", info, function(err) {
-		if(err) {
-			console.log(err);
-			res.status(400);
-			res.send('Error submitting review.');
-		}
-	});
-
-	// write review file:
-	let review = first + last[0] + ".:::" + rating + ":::" + comment;
+	let review = "\n" + name + ":::" + rating + ":::" + comment;
 	fs.appendFile(process.cwd() + "/places/" + folder + "/reviews.txt", review, function(err) {
-		if(err) {
+		if (err) {
 			console.log(err);
 			res.status(400);
-			console.log("error");
-			res.send('Error submitting review.');
+			res.send('Error submitting review');
 		}
-		console.log("success");
 		res.send('Review successfully submitted!');
 	});
 
 });
 
-app.listen(process.env.PORT);
+app.listen(3000);

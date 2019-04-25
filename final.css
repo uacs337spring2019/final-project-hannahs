@@ -12,7 +12,7 @@ h1 {
 	font-size: 45px;
 	text-align: center;
 	font-family: Impact, Charcoal, sans-serif;
-	padding-left: 30px;
+	padding-left: 50px;
 }
 
 #topbanner > img {
@@ -24,7 +24,6 @@ h1 {
 	margin: 0px;
 	margin-top: 10px;
 	font-style: italic;
-	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 #topbanner, #bottombanner {
@@ -45,11 +44,17 @@ h1 {
 
 #bottombanner {
 	margin-top: 40px;
-	float: bottom;
+	justify-content: flex-end;
+}
+
+#bottombanner > img {
+	height: 20px;
+	margin-top: 30px;
 }
 
 #submitnew {
-	margin-left: 350px;
+	margin-left: 1em;
+	float: right;
 }
 
 /* HOMEPAGE -- MAP & LISTINGS */
@@ -137,8 +142,14 @@ h3, p {
 	margin: auto;
 }
 
-fieldset {
+legend {
 	text-align: left;
+}
+
+fieldset {
+	width: 80%;
+	margin: auto;
+	text-align: center;
 }
 
 /* -- INDIVIDUAL REVIEW PAGES --*/
@@ -146,7 +157,6 @@ fieldset {
 #rightdiv > img {
 	float: right;
 	width: 90%;
-	/*height: 300px;*/
 }
 
 #moreinfo {
@@ -209,6 +219,13 @@ h2 {
 }
 
 /* -- REVIEWS --*/
+
+#viewreviews {
+	display: none;
+	width: 90%;
+	margin: auto;
+	height: 100%;
+}
 #reviews {
 	text-align: center;
 }
@@ -218,6 +235,7 @@ h2 {
 	margin: 5px;
 	width: 60%;
 	display: inline-block;
+	margin-bottom: 20px;
 }
 
 .indivRating, .name, .review {
@@ -225,9 +243,25 @@ h2 {
 	margin: 0px;
 }
 
-#comment {
+.indivRating > img {
+	height: 25px;
+}
+
+#comment, #reviewtext{
 	width: 500px;
 	height: 50px;
+}
+
+#reviewtext {
+	margin-top: 10px;
+}
+
+#response2 {
+	margin-top: 10px;
+}
+
+#response2 > button {
+	margin-top: 5px;
 }
 
 

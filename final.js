@@ -1,15 +1,18 @@
 "use strict";
 
 (function () {
-	let PORT = process.env.PORT;
+	//let PORT = process.env.PORT;
+	//let HOST = "http://hannahhsmith12.herokuapp.com:";
+	let PORT = "3000";
+	let HOST = "http://localhost:";
 	window.onload = function () {
 		// homepage: 
 		callAjax("listinfo", "none");
 
 		// when "submit new review" button is clicked:
-		document.getElementById("submitnew").onclick = function () {
-			loadSubmitPage();
-		};
+		// document.getElementById("submitnew").onclick = function () {
+		// 	loadSubmitPage();
+		// };
 
 		// make header clickable:
 		document.getElementById("title").onclick = function () {
@@ -19,7 +22,7 @@
 
 	function callAjax(mode, place) {
 		// place will be the directory name
-		let url = "http://hannahhsmith12.herokuapp.com:" + PORT + "?mode="+mode+"&place="+place;
+		let url = HOST + PORT + "?mode="+mode+"&place="+place;
 		fetch(url)
 			.then(checkStatus)
 			.then(function (responseText) {
@@ -38,6 +41,38 @@
 			})
 	}
 
+	function postAjax(info) {
+		const fetchOptions = {
+			method : 'POST',
+			headers : {
+				'Accept' : 'application/json',
+				'Content-Type' : 'application/json'
+			},
+			body : JSON.stringify(info)
+		};
+
+		let url = HOST + PORT + "?";
+		fetch(url, fetchOptions)
+			.then(checkStatus)
+			.then(function(responseText) {
+				document.getElementById("response").innerHTML = responseText;
+				let home = document.createElement("button");
+				home.innerHTML = "Return Home";
+				home.type = "button";
+				document.getElementById("reviewform").appendChild(home);
+				home.onclick = function () {
+					document.getElementById("reviewform").style.display = "none";
+					document.getElementById("homepage").style.display = "block";
+					// reload homepage:
+					document.getElementById("places").innerHTML = "";
+					callAjax("listinfo", "none");
+				}
+			})
+			.catch(function(error) {
+				console.log(error);
+			});
+	}
+
 	// loads the clickable list on the homepage
 	function loadHomepage(responseText) {
 		document.getElementById("viewreviews").style.display = "none"
@@ -49,6 +84,7 @@
 		let json = JSON.parse(responseText);
 		let places = json.places;
 
+		// Init map:
 		callAjax("map", "none");
 
 		for (let i = 0; i < places.length; i ++) {
@@ -145,7 +181,6 @@
 					logContainer.innerHTML = "";
 				});
 				marker.addEventListener('tap', function () {
-					console.log("clicked");
 					callAjax("moreinfo", places[i].folder);
 				});
 				map.addObject(marker);
@@ -169,7 +204,6 @@
 
 	function postReview() {
 		// Retrieve all values from form:
-		console.log("retrieving form info");
 		let name = document.getElementById("name").value;
 
 		let types = document.getElementsByName("type");
@@ -232,7 +266,6 @@
 			}
 		}
 		let comment = document.getElementById("comment").value;
-		console.log("comment: "+comment);
 
 		let first = document.getElementById("firstname").value;
 		let last = document.getElementById("lastname").value;
@@ -243,69 +276,14 @@
 		"rating" : rating, "hours" : hours, "style" : style, "CO" : customers, 
 		"baby" : baby, "unisex" : unisex, "wheelchair" : wheelchair, "family" : family,
 		"review" : comment, "first" : first, "last" : last};
-		console.log(info);
 
-		const fetchOptions = {
-			method : 'POST',
-			headers : {
-				'Accept' : 'application/json',
-				'Content-Type' : 'application/json'
-			},
-			body : JSON.stringify(info)
-		};
-
-		let url = "http://hannahhsmith12.herokuapp.com:" + PORT + "?";
-		fetch(url, fetchOptions)
-			.then(checkStatus)
-			.then(function(responseText) {
-				document.getElementById("response").innerHTML = responseText;
-				let home = document.createElement("button");
-				home.innerHTML = "Return Home";
-				home.type = "button";
-				document.getElementById("reviewform").appendChild(home);
-				home.onclick = function () {
-					document.getElementById("reviewform").style.display = "none";
-					document.getElementById("homepage").style.display = "block";
-					// reload homepage:
-					document.getElementById("places").innerHTML = "";
-					callAjax("listinfo", "none");
-				}
-			})
-			.catch(function(error) {
-				console.log(error);
-			});
-	}
-
-	/**
-		addReview() -- This function adds a review for the specified establishment
-		whose page the button is clicked on.
-	*/
-	function addReview(directory) {
-
-	}
-
-	// folder name is first 8 characters of the establishment name, excluding whitespace
-	function getFolderName(name) {
-		let folder = "";
-		let count = 0, i = 0;
-		while (count < 8 && i < name.length) {
-			if (name[i] != " ") {
-				folder += name[i].toLowerCase();
-				count ++;
-			}
-			i ++;
-		}
-		// let words = name.split(' ');
-		// let folder = "";
-		// for (let i = 0; i < words.length; i ++) {
-		// 	folder += words[i].toLowerCase();
-		// }
-		console.log("folderName: "+folder);
-		return folder;
+		postAjax(info);
 	}
 
 	// loads review part of individual review/moreinfo pages:
 	function loadReviews(responseText) {
+		// clear out any existing reviews:
+		document.getElementById("reviews").innerHTML = "";
 		let json = JSON.parse(responseText);
 		let reviews = json.reviews;
 		for (let i = 0; i < reviews.length; i ++) {
@@ -318,7 +296,13 @@
 
 			let rating = document.createElement("div");
 			rating.className = "indivRating";
-			rating.innerHTML = reviews[i].rating;
+			let num = reviews[i].rating;
+			for (let i = 0; i < num; i ++) {
+				let img = document.createElement("img");
+				img.src = "star.png";
+				img.alt = "star";
+				rating.append(img);
+			}
 			div.appendChild(rating);
 
 			let review = document.createElement("div");
@@ -327,19 +311,79 @@
 			div.appendChild(review);
 
 			document.getElementById("reviews").appendChild(div);
-
-			document.getElementById("addreview").onclick = function () {
-				loadSubmitPage();
-			}
 		}
+
+		document.getElementById("submitreview").onclick = function () {
+			addSingleReview(reviews[0].folder);
+		};
+	}
+
+	/**
+		addSingleReview() -- This function adds a review for the specified establishment
+		whose page the button is clicked on.
+	*/
+	function addSingleReview(directory) {
+		// clear old reviews, so as not to reload them: 
+		//document.getElementById("reviews").innerHTML = "";
+
+		let name = document.getElementById("reviewername").value;
+		let comment = document.getElementById("reviewtext").value;
+		let rating = document.getElementById("reviewrating").value;
+
+		if (name.length === 0 || comment.length === 0 || rating.length === 0) {
+			document.getElementById("response2").innerHTML = "OOPS! Looks like you forgot something... \
+			please fill out all fields before submitting.";
+			return;
+		}
+
+		const info = {"folder" : directory, "name" : name, "rating" : rating, 
+			"comment": comment};
+
+		const fetchOptions = {
+			method : 'POST',
+			headers : {
+				'Accept' : 'application/json',
+				'Content-Type' : 'application/json'
+			},
+			body : JSON.stringify(info)
+		};
+
+		let url = HOST + PORT + "?";
+		fetch(url, fetchOptions)
+			.then(checkStatus)
+			.then(function(responseText) {
+				document.getElementById("response2").innerHTML = responseText;
+				// add return home button:
+				let home = document.createElement("button");
+				home.innerHTML = "Return Home";
+				home.type = "button";
+				document.getElementById("viewreviews").appendChild(home);
+				home.onclick = function () {
+					document.getElementById("viewreviews").style.display = "none";
+					document.getElementById("homepage").style.display = "block";
+					// reload homepage:
+					document.getElementById("places").innerHTML = "";
+					callAjax("listinfo", "none");
+				}
+			})
+			.catch(function(error) {
+				console.log(error);
+			});
 	}
 
 	function loadMoreInfo(responseText) {
-		console.log("fetching reviews & more info");
-		console.log();
 		// hide other stuff:
 		document.getElementById("homepage").style.display = "none";
 		document.getElementById("viewreviews").style.display = "block";
+
+		// clear any existing info:
+		document.getElementById("leftdiv").innerHTML = "";
+		document.getElementById("rightdiv").innerHTML = "";
+		// clear "leave review area":
+		document.getElementById("response2").innerHTML = "";
+		document.getElementById("reviewername").value = "";
+		document.getElementById("reviewrating").value = "";
+		document.getElementById("reviewtext").value = "";
 
 		let info = JSON.parse(responseText);
 
@@ -483,6 +527,20 @@
 
 		// Load reviews:
 		callAjax("reviews", info.folder);
+	}
+
+	// folder name is first 8 characters of the establishment name, excluding whitespace
+	function getFolderName(name) {
+		let folder = "";
+		let count = 0, i = 0;
+		while (count < 8 && i < name.length) {
+			if (name[i] != " ") {
+				folder += name[i].toLowerCase();
+				count ++;
+			}
+			i ++;
+		}
+		return folder;
 	}
 
 	function checkStatus(response) {
